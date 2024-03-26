@@ -2,6 +2,6 @@
 name = "noir_ml"
 type = "lib"
 authors = [""]
-compiler_version = "0.9.0"
+compiler_version = "0.25.0"
 
 [dependencies]

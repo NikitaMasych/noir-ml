@@ -2,7 +2,7 @@
 name = "circle_fc"
 type = "bin"
 authors = [""]
-compiler_version = "0.9.0"
+compiler_version = "0.25.0"
 
 [dependencies]
 noir_ml = { path = "../../noir_ml" }
