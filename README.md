@@ -6,6 +6,10 @@ This repository provides a framework for creating noir programs for inference on
 
 We also provide two circuit examples, one for binary classification on circles dataset, and another for multi-class classification on mnist dataset.
 
+## Computational Statistics
+
+![nargo info](/example_circuits/nargo_info.png)
+
 ## Usage
 
 The library can be used to create noir programs by either directly writing the noir code defining the network architecture, or by using the provided python script to generate the noir code from a custom trained neural network.
