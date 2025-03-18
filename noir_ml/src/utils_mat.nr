@@ -1,4 +1,4 @@
-fn mat_vec_mul<N_M, M, N>(m: [ Field; N_M], v: [Field; M]) -> [Field; N] {
+fn mat_vec_mul<let N_M: u32, let M: u32, let N: u32>(m: [ Field; N_M], v: [Field; M]) -> [Field; N] {
 
   assert(N_M == N * M);
   
@@ -12,13 +12,13 @@ fn mat_vec_mul<N_M, M, N>(m: [ Field; N_M], v: [Field; M]) -> [Field; N] {
   result
 }
 
-struct Matrix<N> {
+struct Matrix<let N: u32> {
   rows: Field,
   cols: Field,
   data: [ Field; N ],
 }
 
-fn mat_mul<N, M, L>(x: Matrix<N>, y: Matrix<M>) -> Matrix<L> {
+fn mat_mul<let N: u32, let M: u32, let L: u32>(x: Matrix<N>, y: Matrix<M>) -> Matrix<L> {
 
   assert(x.cols == y.rows);
 

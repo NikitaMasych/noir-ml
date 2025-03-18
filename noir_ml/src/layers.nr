@@ -16,7 +16,7 @@ use crate::utils::is_greater_than_signed;
 /// let output = fc(input, weights, biases);
 /// assert_eq!(output, [9, 16]);
 /// ```
-pub fn fc<N_IN, N_IN_OUT, N_OUT>(
+pub fn fc<let N_IN: u32, let N_IN_OUT: u32, let N_OUT: u32>(
     x: [Field; N_IN],
     w: [Field; N_IN_OUT],
     b: [Field; N_OUT]
@@ -34,7 +34,7 @@ pub fn fc<N_IN, N_IN_OUT, N_OUT>(
     result
 }
 
-pub fn conv1d<N_CIN_IN, N_COUT_CIN_K, N_COUT, N_COUT_OUT>(
+pub fn conv1d<let N_CIN_IN: u32, let N_COUT_CIN_K: u32, let N_COUT: u32, let N_COUT_OUT: u32>(
     x: [Field; N_CIN_IN],
     w: [Field; N_COUT_CIN_K],
     b: [Field; N_COUT],
@@ -44,13 +44,13 @@ pub fn conv1d<N_CIN_IN, N_COUT_CIN_K, N_COUT, N_COUT_OUT>(
     kernel_size: u64,
     stride: u64
 ) -> [Field; N_COUT_OUT] {
-    assert(N_CIN_IN == in_channels * in_size);
-    assert(N_COUT_CIN_K == out_channels * in_channels * kernel_size);
-    assert(N_COUT == out_channels);
+    assert(N_CIN_IN as u64 == in_channels * in_size);
+    assert(N_COUT_CIN_K as u64 == out_channels * in_channels * kernel_size);
+    assert(N_COUT as u64 == out_channels);
 
     let out_size = (in_size - kernel_size) / stride + 1;
 
-    assert(N_COUT_OUT == out_channels * out_size);
+    assert(N_COUT_OUT as u64 == out_channels * out_size);
 
     let mut result = [0; N_COUT_OUT];
 
@@ -68,7 +68,7 @@ pub fn conv1d<N_CIN_IN, N_COUT_CIN_K, N_COUT, N_COUT_OUT>(
     result
 }
 
-pub fn conv2d_nonsq<N_CIN_HIN_WIN, N_COUT_CIN_HK_WK, N_COUT, N_COUT_HOUT_WOUT>(
+pub fn conv2d_nonsq<let N_CIN_HIN_WIN: u32, let N_COUT_CIN_HK_WK: u32, let N_COUT: u32, let N_COUT_HOUT_WOUT: u32>(
     x: [Field; N_CIN_HIN_WIN],
     w: [Field; N_COUT_CIN_HK_WK],
     b: [Field; N_COUT],
@@ -80,14 +80,14 @@ pub fn conv2d_nonsq<N_CIN_HIN_WIN, N_COUT_CIN_HK_WK, N_COUT, N_COUT_HOUT_WOUT>(
     kernel_width: u64,
     stride: u64
 ) -> [Field; N_COUT_HOUT_WOUT] {
-    assert(N_CIN_HIN_WIN == in_channels * in_height * in_width);
-    assert(N_COUT_CIN_HK_WK == out_channels * in_channels * kernel_height * kernel_width);
-    assert(N_COUT == out_channels);
+    assert(N_CIN_HIN_WIN as u64 == in_channels * in_height * in_width);
+    assert(N_COUT_CIN_HK_WK as u64 == out_channels * in_channels * kernel_height * kernel_width);
+    assert(N_COUT as u64 == out_channels);
 
     let out_height = (in_height - kernel_height) / stride + 1;
     let out_width = (in_width - kernel_width) / stride + 1;
 
-    assert(N_COUT_HOUT_WOUT == out_channels * out_height * out_width);
+    assert(N_COUT_HOUT_WOUT as u64 == out_channels * out_height * out_width);
 
     let mut result = [0; N_COUT_HOUT_WOUT];
 
@@ -109,7 +109,7 @@ pub fn conv2d_nonsq<N_CIN_HIN_WIN, N_COUT_CIN_HK_WK, N_COUT, N_COUT_HOUT_WOUT>(
     result
 }
 
-pub fn conv2d<N_CIN_IN, N_COUT_CIN_K, N_COUT, N_COUT_OUT>(
+pub fn conv2d<let N_CIN_IN: u32, let N_COUT_CIN_K: u32, let N_COUT: u32, let N_COUT_OUT: u32>(
     x: [Field; N_CIN_IN],
     w: [Field; N_COUT_CIN_K],
     b: [Field; N_COUT],
@@ -133,17 +133,17 @@ pub fn conv2d<N_CIN_IN, N_COUT_CIN_K, N_COUT, N_COUT_OUT>(
     )
 }
 
-pub fn max_pool_1d<N_CIN_IN, N_COUT_OUT>(
+pub fn max_pool_1d<let N_CIN_IN: u32, let N_COUT_OUT: u32>(
     x: [Field; N_CIN_IN],
     in_size: u64,
     in_channels: u64,
     kernel_size: u64
 ) -> [Field; N_COUT_OUT] {
-    assert(N_CIN_IN == in_channels * in_size);
+    assert(N_CIN_IN as u64 == in_channels * in_size);
 
     let out_size = in_size / kernel_size;
 
-    assert(N_COUT_OUT == in_channels * out_size);
+    assert(N_COUT_OUT as u64 == in_channels * out_size);
 
     let mut result = [0; N_COUT_OUT];
 
@@ -162,17 +162,17 @@ pub fn max_pool_1d<N_CIN_IN, N_COUT_OUT>(
     result
 }
 
-pub fn avg_pool_1d<N_CIN_IN, N_COUT_OUT>(
+pub fn avg_pool_1d<let N_CIN_IN: u32, let N_COUT_OUT: u32>(
     x: [Field; N_CIN_IN],
     in_size: u64,
     in_channels: u64,
     kernel_size: u64
 ) -> [Field; N_COUT_OUT] {
-    assert(N_CIN_IN == in_channels * in_size);
+    assert(N_CIN_IN as u64 == in_channels * in_size);
 
     let out_size = in_size / kernel_size;
 
-    assert(N_COUT_OUT == in_channels * out_size);
+    assert(N_COUT_OUT as u64 == in_channels * out_size);
 
     let mut result = [0; N_COUT_OUT];
 
@@ -188,17 +188,17 @@ pub fn avg_pool_1d<N_CIN_IN, N_COUT_OUT>(
     result
 }
 
-pub fn sum_pool_1d<N_CIN_IN, N_COUT_OUT>(
+pub fn sum_pool_1d<let N_CIN_IN: u32, let N_COUT_OUT: u32>(
     x: [Field; N_CIN_IN],
     in_size: u64,
     in_channels: u64,
     kernel_size: u64
 ) -> [Field; N_COUT_OUT] {
-    assert(N_CIN_IN == in_channels * in_size);
+    assert(N_CIN_IN as u64 == in_channels * in_size);
 
     let out_size = in_size / kernel_size;
 
-    assert(N_COUT_OUT == in_channels * out_size);
+    assert(N_COUT_OUT as u64 == in_channels * out_size);
 
     let mut result = [0; N_COUT_OUT];
 
@@ -214,7 +214,7 @@ pub fn sum_pool_1d<N_CIN_IN, N_COUT_OUT>(
     result
 }
 
-pub fn max_pool_2d_nonsq<N_CIN_HIN_WIN, N_COUT_HOUT_WOUT>(
+pub fn max_pool_2d_nonsq<let N_CIN_HIN_WIN: u32, let N_COUT_HOUT_WOUT: u32>(
     x: [Field; N_CIN_HIN_WIN],
     in_height: u64,
     in_width: u64,
@@ -222,12 +222,12 @@ pub fn max_pool_2d_nonsq<N_CIN_HIN_WIN, N_COUT_HOUT_WOUT>(
     kernel_height: u64,
     kernel_width: u64
 ) -> [Field; N_COUT_HOUT_WOUT] {
-    assert(N_CIN_HIN_WIN == in_channels * in_height * in_width);
+    assert(N_CIN_HIN_WIN as u64 == in_channels * in_height * in_width);
 
     let out_height = in_height / kernel_height;
     let out_width = in_width / kernel_width;
 
-    assert(N_COUT_HOUT_WOUT == in_channels * out_height * out_width);
+    assert(N_COUT_HOUT_WOUT as u64 == in_channels * out_height * out_width);
 
     let mut result = [0; N_COUT_HOUT_WOUT];
 
@@ -253,7 +253,7 @@ pub fn max_pool_2d_nonsq<N_CIN_HIN_WIN, N_COUT_HOUT_WOUT>(
     result
 }
 
-pub fn max_pool_2d<N_CIN_IN, N_COUT_OUT>(
+pub fn max_pool_2d<let N_CIN_IN: u32, let N_COUT_OUT: u32>(
     x: [Field; N_CIN_IN],
     in_size: u64,
     in_channels: u64,
@@ -262,8 +262,8 @@ pub fn max_pool_2d<N_CIN_IN, N_COUT_OUT>(
     max_pool_2d_nonsq(x, in_size, in_size, in_channels, kernel_size, kernel_size)
 }
 
-pub fn global_max_pool_2d_nonsq<N_CIN_HIN_WIN, N_COUT>(x: [Field; N_CIN_HIN_WIN], in_height: u64, in_width: u64, in_channels: u64) -> [Field; N_COUT] {
-    assert(N_CIN_HIN_WIN == in_channels * in_height * in_width);
+pub fn global_max_pool_2d_nonsq<let N_CIN_HIN_WIN: u32, let N_COUT: u32>(x: [Field; N_CIN_HIN_WIN], in_height: u64, in_width: u64, in_channels: u64) -> [Field; N_COUT] {
+    assert(N_CIN_HIN_WIN as u64 == in_channels * in_height * in_width);
 
     let mut result = [0; N_COUT];
 
@@ -282,7 +282,7 @@ pub fn global_max_pool_2d_nonsq<N_CIN_HIN_WIN, N_COUT>(x: [Field; N_CIN_HIN_WIN]
     result
 }
 
-pub fn global_max_pool_2d<N_CIN_IN, N_COUT>(
+pub fn global_max_pool_2d<let N_CIN_IN: u32, let N_COUT: u32>(
     x: [Field; N_CIN_IN],
     in_size: u64,
     in_channels: u64
@@ -290,7 +290,7 @@ pub fn global_max_pool_2d<N_CIN_IN, N_COUT>(
     global_max_pool_2d_nonsq(x, in_size, in_size, in_channels)
 }
 
-pub fn avg_pool_2d_nonsq<N_CIN_HIN_WIN, N_COUT_HOUT_WOUT>(
+pub fn avg_pool_2d_nonsq<let N_CIN_HIN_WIN: u32, let N_COUT_HOUT_WOUT: u32>(
     x: [Field; N_CIN_HIN_WIN],
     in_height: u64,
     in_width: u64,
@@ -298,12 +298,12 @@ pub fn avg_pool_2d_nonsq<N_CIN_HIN_WIN, N_COUT_HOUT_WOUT>(
     kernel_height: u64,
     kernel_width: u64
 ) -> [Field; N_COUT_HOUT_WOUT] {
-    assert(N_CIN_HIN_WIN == in_channels * in_height * in_width);
+    assert(N_CIN_HIN_WIN as u64 == in_channels * in_height * in_width);
 
     let out_height = in_height / kernel_height;
     let out_width = in_width / kernel_width;
 
-    assert(N_COUT_HOUT_WOUT == in_channels * out_height * out_width);
+    assert(N_COUT_HOUT_WOUT as u64 == in_channels * out_height * out_width);
 
     let mut result = [0; N_COUT_HOUT_WOUT];
 
@@ -323,7 +323,7 @@ pub fn avg_pool_2d_nonsq<N_CIN_HIN_WIN, N_COUT_HOUT_WOUT>(
     result
 }
 
-pub fn avg_pool_2d<N_CIN_IN, N_COUT_OUT>(
+pub fn avg_pool_2d<let N_CIN_IN: u32, let N_COUT_OUT: u32>(
     x: [Field; N_CIN_IN],
     in_size: u64,
     in_channels: u64,
@@ -332,7 +332,7 @@ pub fn avg_pool_2d<N_CIN_IN, N_COUT_OUT>(
     avg_pool_2d_nonsq(x, in_size, in_size, in_channels, kernel_size, kernel_size)
 }
 
-pub fn sum_pool_2d_nonsq<N_CIN_HIN_WIN, N_COUT_HOUT_WOUT>(
+pub fn sum_pool_2d_nonsq<let N_CIN_HIN_WIN: u32, let N_COUT_HOUT_WOUT: u32>(
     x: [Field; N_CIN_HIN_WIN],
     in_height: u64,
     in_width: u64,
@@ -340,12 +340,12 @@ pub fn sum_pool_2d_nonsq<N_CIN_HIN_WIN, N_COUT_HOUT_WOUT>(
     kernel_height: u64,
     kernel_width: u64
 ) -> [Field; N_COUT_HOUT_WOUT] {
-    assert(N_CIN_HIN_WIN == in_channels * in_height * in_width);
+    assert(N_CIN_HIN_WIN as u64 == in_channels * in_height * in_width);
 
     let out_height = in_height / kernel_height;
     let out_width = in_width / kernel_width;
 
-    assert(N_COUT_HOUT_WOUT == in_channels * out_height * out_width);
+    assert(N_COUT_HOUT_WOUT as u64 == in_channels * out_height * out_width);
 
     let mut result = [0; N_COUT_HOUT_WOUT];
 
@@ -365,7 +365,7 @@ pub fn sum_pool_2d_nonsq<N_CIN_HIN_WIN, N_COUT_HOUT_WOUT>(
     result
 }
 
-pub fn sum_pool_2d<N_CIN_IN, N_COUT_OUT>(
+pub fn sum_pool_2d<let N_CIN_IN: u32, let N_COUT_OUT: u32>(
     x: [Field; N_CIN_IN],
     in_size: u64,
     in_channels: u64,

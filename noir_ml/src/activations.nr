@@ -15,7 +15,7 @@ use crate::utils::is_positive;
 /// let activated = relu(values);
 /// assert_eq!(activated, [0, 2, 0]);
 /// ```
-pub fn relu<N>(values: [Field; N]) -> [Field; N] {
+pub fn relu<let N: u32>(values: [Field; N]) -> [Field; N] {
     let mut result = [0; N];
 
     for i in 0..N {
@@ -26,7 +26,7 @@ pub fn relu<N>(values: [Field; N]) -> [Field; N] {
     result
 }
 
-pub fn poly<N>(values: [Field; N], scaling_factor: Field) -> [Field; N] {
+pub fn poly<let N: u32>(values: [Field; N], scaling_factor: Field) -> [Field; N] {
     let mut result = [0; N];
 
     for i in 0..N {

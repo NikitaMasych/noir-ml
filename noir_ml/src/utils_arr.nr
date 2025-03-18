@@ -1,4 +1,4 @@
-fn arr_add<N>(x : [ Field; N ], y : [ Field; N ]) -> [ Field; N ] {
+fn arr_add<let N: u32>(x : [ Field; N ], y : [ Field; N ]) -> [ Field; N ] {
   let mut result = [0; N];
 
   for i in 0..N {
@@ -8,7 +8,7 @@ fn arr_add<N>(x : [ Field; N ], y : [ Field; N ]) -> [ Field; N ] {
 }
 
 
-fn dot_prod<N>(x : [ Field; N ], y : [ Field; N ]) -> Field {
+fn dot_prod<let N: u32>(x : [ Field; N ], y : [ Field; N ]) -> Field {
   let mut dot_prod = 0;
 
   for i in 0..N {
@@ -18,7 +18,7 @@ fn dot_prod<N>(x : [ Field; N ], y : [ Field; N ]) -> Field {
 }
 
 
-fn prune_arr<N>(x : [ Field ]) -> [ Field; N ] {
+fn prune_arr<let N: u32>(x : [ Field ]) -> [ Field; N ] {
   let mut result = [ 0; N ];
 
   for i in 0..N {
@@ -28,7 +28,7 @@ fn prune_arr<N>(x : [ Field ]) -> [ Field; N ] {
 }
 
 
-fn pad_arr<MAX_LENGTH>(x : [ Field ]) -> [ Field; MAX_LENGTH] {
+fn pad_arr<let MAX_LENGTH: u32>(x : [ Field ]) -> [ Field; MAX_LENGTH] {
 
   let n = x.len();
   assert(n <= MAX_LENGTH);
